@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.google.gson.Gson;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Carrinho {
 
 	private List<Produto> produtos = new ArrayList<Produto>();
@@ -13,8 +19,11 @@ public class Carrinho {
 	private String cidade;
 	private long id;
 
+	public Carrinho(){}
+	
 	public Carrinho adiciona(Produto produto) {
 		produtos.add(produto);
+		System.out.println("Add Produto " + produto.getId());
 		return this;
 	}
 
@@ -48,7 +57,19 @@ public class Carrinho {
 		for (Iterator iterator = produtos.iterator(); iterator.hasNext();) {
 			Produto produto = (Produto) iterator.next();
 			if(produto.getId() == id) {
+				System.out.println("Removido produto id = " + id);
 				iterator.remove();
+			}
+		}
+		
+	}
+	
+	public void removeProduto(long id) {
+		for (Produto produto : produtos) {
+			if (produto.getId() == id) {
+				produtos.remove(produto);
+				System.out.println("Removido produto id = " + id);
+				break;
 			}
 		}
 	}
@@ -70,22 +91,6 @@ public class Carrinho {
 	
 	public List<Produto> getProdutos() {
 		return produtos;
-	}
-	
-	public String toXML() {
-		String xml = "<carrinho>"; 
-		xml+="<id>"+id+"</id>";
-		xml+="<produtos>";
-		for (Produto produto : produtos) {
-			xml+="<produto>";
-			xml+="<id>"+produto.getId()+"</id>";
-			xml+="<nome>"+produto.getNome()+"</nome>";
-			xml+="<preco>"+produto.getPreco()+"</preco>";
-			xml+="</produto>";
-		}
-		xml+="</produtos>";
-		xml+="</carrinho>";
-		return xml;
 	}
 
 	public String toJSON() {

@@ -9,6 +9,8 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 public class Servidor {
 
+	public static final String HOST = "http://localhost:8080"; 
+	
 	 public static void main(String[] args) throws IOException {
 	        HttpServer server = startServer();
 	        System.in.read();
@@ -17,7 +19,7 @@ public class Servidor {
 	 
 	 public static HttpServer startServer() {
 	        ResourceConfig config = new ResourceConfig().packages("br.com.alura.loja");
-	        URI uri = URI.create("http://localhost:8080/");
+	        URI uri = URI.create(Servidor.HOST);
 	        HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, config);
 	        System.out.println("Servidor rodando");
 	        return server;

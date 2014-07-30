@@ -36,9 +36,5 @@ public class CarrinhoDAO {
 	public Carrinho remove(long id) {
 		return banco.remove(id);
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(new CarrinhoDAO().busca(1l).toXML());
-	}
 
 }
